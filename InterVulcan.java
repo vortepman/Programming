@@ -1,5 +1,3 @@
-package com.company;
-
 public interface InterVulcan {
 
     void setName(String name);

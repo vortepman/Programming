@@ -1,5 +1,3 @@
-package com.company;
-
 public class Vulcan implements InterVulcan {
 
     private String name;

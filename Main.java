@@ -1,5 +1,3 @@
-package com.company;
-
 import static java.lang.Math.abs;
 
 public class Main {

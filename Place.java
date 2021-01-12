@@ -1,5 +1,3 @@
-package com.company;
-
 public enum Place {
     EREBUS("к Эребусу"),
     TERROR("к Террору"),

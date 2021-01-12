@@ -1,5 +1,3 @@
-package com.company;
-
 public class Travel implements InterTravel {
 
     private Place currentPlace; // current position))

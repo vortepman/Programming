@@ -1,5 +1,3 @@
-package com.company;
-
 public abstract class Transport {
 
     protected boolean onTheRun; // is transport moving now

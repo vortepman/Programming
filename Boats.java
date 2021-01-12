@@ -1,5 +1,3 @@
-package com.company;
-
 public class Boats extends Transport implements InterBoats {
 
     protected boolean isMoor; // is the ship moored now

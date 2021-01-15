@@ -1,5 +1,6 @@
 public abstract class Transport {
 
+    // fields
     protected boolean onTheRun; // is transport moving now
     protected boolean alive = true; // whole/on the go transport
     protected String name;

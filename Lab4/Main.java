@@ -2,7 +2,6 @@ import static java.lang.Math.abs;
 
 public class Main {
     
-/**
 Main class of this laboratory work. To start a program.
 
     public static void main(String[] args) throws PlotError {

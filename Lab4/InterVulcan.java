@@ -1,4 +1,8 @@
 public interface InterVulcan {
+    
+/**
+Interface for work with Vulcan class
+*/
 
     void setName(String name);
     void endOfEruption();

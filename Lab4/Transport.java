@@ -1,5 +1,10 @@
 public abstract class Transport {
+    
+/**
+Abstracr class for doing transport which will be used in this program
+*/
 
+    // fields
     protected boolean onTheRun; // is transport moving now
     protected boolean alive = true; // whole/on the go transport
     protected String name;

@@ -1,14 +1,21 @@
 public class Boats extends Transport implements InterBoats {
+    
+/**
+Class for implementing the functionality of ships
+*/
 
+    // fields
     protected boolean isMoor; // is the ship moored now
     private static int maxPassengersCount = 75;
 
+    // Constructor
     public Boats(String name, boolean onTheRun, boolean isMoor) {
         this.setName(name);
         this.onTheRun = onTheRun;
         this.isMoor = isMoor;
     }
 
+    // Meethod for moor of boat
     public void moor(Vulcan vulcan) { // method of mooring ships
         if(this.alive) {
             if(!vulcan.eruption && vulcan.getHasLand()) {
@@ -30,7 +37,8 @@ public class Boats extends Transport implements InterBoats {
         }
     }
 
-    public void sailOff(Vulcan vulcan) { // method for unmooring ships
+    // Method for unmooring ships
+    public void sailOff(Vulcan vulcan) { 
         if(this.alive) {
             if(this.isMoor) {
                 this.isMoor = false;
@@ -47,6 +55,7 @@ public class Boats extends Transport implements InterBoats {
     }
 
     @Override
+    // Method for start the move
     public void startToMove() {
         if(this.alive) {
             if(!this.onTheRun){
@@ -63,6 +72,7 @@ public class Boats extends Transport implements InterBoats {
     }
 
     @Override
+    // Method for stop the move
     public void stopToMove() {
         if(this.onTheRun){
             this.onTheRun = false;
@@ -74,6 +84,7 @@ public class Boats extends Transport implements InterBoats {
     }
 
     @Override
+    // This method can crash boats
     public void crash() {
         if(this.alive) {
             this.alive = false;
@@ -85,6 +96,7 @@ public class Boats extends Transport implements InterBoats {
         }
     }
 
+    // getters ans setters for field name
     @Override
     public void setName(String name) {
         this.name = name;
@@ -94,9 +106,11 @@ public class Boats extends Transport implements InterBoats {
     public String getName() {
         return this.name;
     }
-
+    
+    // Inner class for return value of field maxPassengeersCount
     public static class BoatsPlans {
 
+        // To return value of field maxPassengeersCount
         public static int getMaxPassengersCount() {
 
             return maxPassengersCount;

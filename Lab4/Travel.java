@@ -1,4 +1,8 @@
 public class Travel implements InterTravel {
+    
+/**
+Class for working with Traveling
+*/
 
     private Place currentPlace; // current position))
 

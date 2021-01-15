@@ -1,4 +1,8 @@
 public class Vulcan implements InterVulcan {
+    
+/**
+Class for working with a volcano which are discribed in the program
+*/
 
     private String name;
     private int height;

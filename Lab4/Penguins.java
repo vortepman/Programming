@@ -1,5 +1,6 @@
 public class Penguins extends Animal {
-
+    
+    // Constructor
     public Penguins(String name, boolean inWater, boolean hungry) {
         this.name = name;
         this.inWater = inWater;
@@ -7,11 +8,14 @@ public class Penguins extends Animal {
     }
 
     @Override
+    // to scream
     public void voice() {
         System.out.println("> " + this.name + " издают гогочущие звуки");
     }
 
+    // to walk
     public void walk(Vulcan vulcan) {
+        // to flee
         if(!this.inWater && vulcan.eruption) {
             System.out.println("> " + this.name + " легли на пузо и уехали к воде");
             this.swim();

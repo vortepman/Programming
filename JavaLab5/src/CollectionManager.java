@@ -96,7 +96,7 @@ public class CollectionManager {
                             else {
                                 nonSuccessfulDownloads += 1;
                             }
-                        } catch (NumberFormatException numberFormatException) {
+                        } catch (IllegalArgumentException numberFormatException) {
                             nonSuccessfulDownloads += 1;
                         }
                     }
@@ -440,45 +440,61 @@ public class CollectionManager {
 
     /** Method for updating the band(element) by it`s ID */
     public void update(String id) {
-        if (musicBands.size() != 0) {
-            for (MusicBand musicBand : musicBands) {
-                Long longId = musicBand.getId();
-                String strId = String.valueOf(longId);
-                if (strId.equals(id.trim())) {
-                    musicBands.remove(musicBand);
-                    MusicBand updatedPerson = new MusicBand(longId, receiveName(), musicBand.returnCreationDate(),
-                            receiveCoordinates(),
-                            receiveNumberOfParticipants(), receiveMusicGenre(), receiveBestAlbum());
-                    musicBands.add(updatedPerson);
-                    System.out.println("Element was updated successfully.");
-                    return;
+        try {
+            if (musicBands.size() != 0) {
+                Long newId;
+                if (id.indexOf(" ") > 0) {
+                    newId = Long.valueOf(id.trim().substring(0, id.indexOf(" ")));
+                } else {
+                    newId = Long.valueOf(id.trim());
                 }
+                for (MusicBand musicBand : musicBands) {
+                    if (newId.equals(musicBand.getId())) {
+                        musicBands.remove(musicBand);
+                        MusicBand updatedPerson = new MusicBand(newId, receiveName(), musicBand.returnCreationDate(),
+                                receiveCoordinates(),
+                                receiveNumberOfParticipants(), receiveMusicGenre(), receiveBestAlbum());
+                        musicBands.add(updatedPerson);
+                        System.out.println("Element was updated successfully.");
+                        return;
+                    }
+                }
+                System.out.println("Element with this ID is not defined. Try again.");
+            } else {
+                System.out.println("There are no elements in the collection yet.");
             }
-            System.out.println("Element with this ID is not defined. Try again.");
-        }
-        else {
-            System.out.println("There are no elements in the collection yet.");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("You need to enter a number, try again.");
         }
     }
 
     /** Method for removing the band(element) by it`s ID */
     public void remove(String id) {
-        if (musicBands.size() != 0) {
-            for (MusicBand musicBand : musicBands) {
-                Long longId = musicBand.getId();
-                String strId = String.valueOf(longId);
-                if (strId.equals(id.trim())) {
-                    musicBands.remove(musicBand);
-                    System.out.println("Element was deleted successfully.");
-                    return;
+        try {
+            if (musicBands.size() != 0) {
+                Long removeId;
+                if (id.indexOf(" ") > 0) {
+                    removeId = Long.valueOf(id.trim().substring(0, id.indexOf(" ")));
+                } else {
+                    removeId = Long.valueOf(id.trim());
                 }
+                for (MusicBand musicBand : musicBands) {
+                    if (removeId.equals(musicBand.getId())) {
+                        musicBands.remove(musicBand);
+                        System.out.println("Element was deleted successfully.");
+                        return;
+                    }
+                }
+                System.out.println("Element with this ID is not defined. Try again.");
+            } else {
+                System.out.println("There are no elements in the collection yet.");
             }
-            System.out.println("Element with this ID is not defined. Try again.");
-        }
-        else {
-            System.out.println("There are no elements in the collection yet.");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("You need to enter a number, try again.");
         }
     }
+
+
 
     /** Method for adding band(element) to collection if it`s best album sales more than entered sales */
     public void add_if_max_sales(MusicBand contender) {
@@ -540,20 +556,30 @@ public class CollectionManager {
     }
 
     /** Method for counting amount of elements, which number of participants greater than entered number */
-    public void count_greater_than_number_of_participants(String MyNumberOfParticipants) {
-        if (musicBands.size() != 0) {
-            int sum_of_bands = 0;
-            long LongMyNumberOfParticipants = Long.parseLong(MyNumberOfParticipants.trim());
-            for (MusicBand musicBand : musicBands) {
-                if (musicBand.getNumberOfParticipants() > LongMyNumberOfParticipants) {
-                    sum_of_bands += 1;
+    public void count_greater_than_number_of_participants(String myNumberOfParticipants) {
+        try {
+            if (musicBands.size() != 0) {
+                int sum_of_bands = 0;
+                //long LongMyNumberOfParticipants = Long.parseLong(MyNumberOfParticipants.trim());
+                long longMyNumberOfParticipants;
+                if (myNumberOfParticipants.indexOf(" ") > 0) {
+                    longMyNumberOfParticipants = Long.parseLong(myNumberOfParticipants.trim().substring(0
+                            , myNumberOfParticipants.indexOf(" ")));
+                } else {
+                    longMyNumberOfParticipants = Long.parseLong(myNumberOfParticipants.trim());
                 }
+                for (MusicBand musicBand : musicBands) {
+                    if (musicBand.getNumberOfParticipants() > longMyNumberOfParticipants) {
+                        sum_of_bands += 1;
+                    }
+                }
+                System.out.println("The number of groups whose numberOfParticipants field value is greater than" +
+                        " the received value = " + sum_of_bands);
+            } else {
+                System.out.println("There are no elements in the collection yet.");
             }
-            System.out.println("The number of groups whose numberOfParticipants field value is greater than" +
-                    " the received value = " + sum_of_bands);
-        }
-        else {
-            System.out.println("There are no elements in the collection yet.");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("You need to enter a number, try again.");
         }
     }
 
@@ -567,7 +593,8 @@ public class CollectionManager {
     public void save() {
         if (checkFile(env)) {
             try (
-                    Writer writer = Files.newBufferedWriter(Paths.get(System.getenv(env)));
+                    //Writer writer = Files.newBufferedWriter(Paths.get(System.getenv(env)));
+                    FileWriter writer = new FileWriter(System.getenv(env));
 
                     CSVWriter csvWriter = new CSVWriter(writer,
                             CSVWriter.DEFAULT_SEPARATOR,

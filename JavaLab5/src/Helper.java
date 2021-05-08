@@ -37,7 +37,9 @@ public class Helper {
                 while (!userCommand.equals("exit")) {
                     System.out.print("Enter a command: ");
                     userCommand = commandReader.nextLine();
-                    String[] finalUserCommand = userCommand.trim().toLowerCase().split(" ", 2);
+                    String regex = "\\s+";
+                    String wrongUserCommand = userCommand.replaceAll(regex, " ");
+                    String[] finalUserCommand = wrongUserCommand.trim().toLowerCase().split(" ", 2);
                     try {
                         switch (finalUserCommand[0]) {
                             case "":

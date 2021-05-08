@@ -10,7 +10,7 @@ import java.util.*;
 public class Helper {
 
     /** Collection manager for realising user`s commands */
-    private final CollectionManager collectionManager;
+    private final CollectionSupervisor collectionSupervisor;
     /** Field for receiving user`s command */
     private String userCommand;
 
@@ -22,8 +22,8 @@ public class Helper {
      * Constructor for making a commander
      * @param manager - CollectionManager class object which will realise user`s commands
      */
-    public Helper(CollectionManager manager) {
-        this.collectionManager = manager;
+    public Helper(CollectionSupervisor manager) {
+        this.collectionSupervisor = manager;
     }
 
     /**
@@ -45,58 +45,58 @@ public class Helper {
                             case "":
                                 break;
                             case "help":
-                                collectionManager.help();
+                                collectionSupervisor.help();
                                 break;
                             case "info":
-                                collectionManager.info();
+                                collectionSupervisor.info();
                                 break;
                             case "show":
-                                collectionManager.show();
+                                collectionSupervisor.show();
                                 break;
                             case "add":
-                                collectionManager.add();
+                                collectionSupervisor.add();
                                 break;
                             case "clear":
-                                collectionManager.clear();
+                                collectionSupervisor.clear();
                                 break;
                             case "exit":
-                                collectionManager.exit();
+                                collectionSupervisor.exit();
                                 break;
                             case "update":
-                                collectionManager.update(finalUserCommand[1]);
+                                collectionSupervisor.update(finalUserCommand[1]);
                                 break;
                             case "remove":
-                                collectionManager.remove(finalUserCommand[1]);
+                                collectionSupervisor.remove(finalUserCommand[1]);
                                 break;
                             case "head":
-                                collectionManager.head();
+                                collectionSupervisor.head();
                                 break;
                             case "remove_head":
-                                collectionManager.remove_head();
+                                collectionSupervisor.remove_head();
                                 break;
                             case "execute_script":
-                                collectionManager.execute_script(finalUserCommand[1]);
+                                collectionSupervisor.execute_script(finalUserCommand[1]);
                                 break;
                             case "add_if_max_sales":
                                 System.out.println("Enter characteristics of element, " +
                                         "which will be compared with elements in collection.");
-                                collectionManager.add_if_max_sales(new MusicBand(collectionManager.receiveId(),
-                                        collectionManager.receiveName(), collectionManager.returnDate(),
-                                        collectionManager.receiveCoordinates(),
-                                        collectionManager.receiveNumberOfParticipants(),
-                                        collectionManager.receiveMusicGenre(), collectionManager.receiveBestAlbum()));
+                                collectionSupervisor.add_if_max_sales(new MusicBand(collectionSupervisor.receiveId(),
+                                        collectionSupervisor.receiveName(), collectionSupervisor.returnDate(),
+                                        collectionSupervisor.receiveCoordinates(),
+                                        collectionSupervisor.receiveNumberOfParticipants(),
+                                        collectionSupervisor.receiveMusicGenre(), collectionSupervisor.receiveBestAlbum()));
                                 break;
                             case "average_of_number_of_participants":
-                                collectionManager.average_of_number_of_participants();
+                                collectionSupervisor.average_of_number_of_participants();
                                 break;
                             case "group_counting_by_id":
-                                collectionManager.group_counting_by_id(finalUserCommand[1]);
+                                collectionSupervisor.group_counting_by_id(finalUserCommand[1]);
                                 break;
                             case "save":
-                                collectionManager.save();
+                                collectionSupervisor.save();
                                 break;
                             case "count_greater_than_number_of_participants":
-                                collectionManager.count_greater_than_number_of_participants(finalUserCommand[1]);
+                                collectionSupervisor.count_greater_than_number_of_participants(finalUserCommand[1]);
                                 break;
                             default:
                                 System.out.println("Unknown command. Write help for help. Sorry for the tautology.");

@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Collection manager v0.1 by Petrov Ilya is starting -__-");
         System.out.println("Here you can make a list of your favorite bands.");
-        Helper helper = new Helper(new CollectionManager());
+        Helper helper = new Helper(new CollectionSupervisor());
         helper.autoMode();
     }
 }

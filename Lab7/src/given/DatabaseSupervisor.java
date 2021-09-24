@@ -11,7 +11,7 @@ import java.sql.*;
 /**
  * @author Petrov Ilya
  * @version 1.0
- * Class for parsing CSV file and save it
+ * Class for connect to the database and download information from it
  */
 public class DatabaseSupervisor {
     /**

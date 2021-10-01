@@ -12,13 +12,29 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Class for working with user data
+ * @author Petrov Ilya
+ * @version 1.0
+ */
 public class WorkWithUser {
+    /**
+     * Variable for storing the user's decision: register or log in
+     */
     private static String userDecision = "";
+    /**
+     * Variable for storing the user's name
+     */
     private static String username = "";
+    /**
+     * Establishing a connection to the database
+     */
     private static Connection c = DatabaseSupervisor.getConnection();
 
+    /** Default constructor */
     public WorkWithUser() {}
 
+    /** method for the client to log into his account */
     public static String logging() throws SQLException {
         ArrayDeque<String> users = new ArrayDeque<>();
         Scanner inputValue = new Scanner(System.in);
@@ -133,6 +149,7 @@ public class WorkWithUser {
         }
     }
 
+    /** method for hashing the input value */
     public static String hashing(String input) {
         try {
             // getInstance() method is called with algorithm SHA-384
@@ -164,6 +181,7 @@ public class WorkWithUser {
         }
     }
 
+    /** method for working with user password */
     public static String workingWithPassword() throws SQLException {
         Scanner inputValue2 = new Scanner(System.in);
         String usersPassword = "";

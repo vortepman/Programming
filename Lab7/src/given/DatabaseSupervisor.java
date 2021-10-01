@@ -11,7 +11,7 @@ import java.sql.*;
 /**
  * @author Petrov Ilya
  * @version 1.0
- * Class for parsing CSV file and save it
+ * Class for working with database
  */
 public class DatabaseSupervisor {
     /**
@@ -28,68 +28,22 @@ public class DatabaseSupervisor {
      * Field for saving date of initialization the collection
      */
     private LocalDateTime initializationDate;
-    private static final String url = "jdbc:postgresql://localhost:****/studs";
-    //private static final String url = "jdbc:postgresql://pg:****/studs";
-    private static final String user = "*******";
-    private static final String pass =  "******";
-    private static final String schema =  "*******";
-
+    //private static final String url = "jdbc:postgresql://localhost:********/studs";
+    private static final String url = "jdbc:postgresql://pg:********/studs";
+    private static final String user = "********";
+    private static final String pass =  "********";
+    private static final String schema =  "********";
     private static Connection connection;
 
-    // Constructor for checking a path to file existence and file readiness to work
+    // Constructor for establishing a connection to the database and fixing the start time
     public DatabaseSupervisor() {
         Connection c = DatabaseSupervisor.getConnection();
         initializationDate = LocalDateTime.now();
-        //DatabaseSupervisor.downloadElements(c, musicBands);
-
-//        try {
-//            PreparedStatement ps = c.prepareStatement("select * from music_bands");
-//            ResultSet rs = ps.executeQuery();
-//            int downloads = 0;
-//
-//            while (rs.next()) {
-//                Coordinates coordinates = new Coordinates(
-//                        rs.getInt("x_coordinate"),
-//                        (long) rs.getInt("y_coordinate")
-//                );
-//                Album album = new Album(
-//                        rs.getString("best_album_name"),
-//                        (long) rs.getInt("best_album_sales")
-//                );
-//                MusicGenre musicGenre;
-//                if (rs.getString("genre").equals("ROCK")) {
-//                    musicGenre = MusicGenre.ROCK;
-//                } else if (rs.getString("genre").equals("JAZZ")) {
-//                    musicGenre = MusicGenre.JAZZ;
-//                } else {
-//                    musicGenre = MusicGenre.BLUES;
-//                }
-//                MusicBand musicBand = new MusicBand(
-//                        (long) rs.getInt("id"),
-//                        rs.getString("name"),
-//                        rs.getString("creation_date"),
-//                        coordinates,
-//                        rs.getInt("number_of_participants"),
-//                        //MusicGenre.valueOf(rs.getString("genre")),
-//                        //MusicGenre.ROCK,
-//                        musicGenre,
-//                        album
-//                );
-//                musicBands.add(musicBand);
-//                downloads += 1;
-//            }
-//            System.out.println("Number of successfully loaded element: " + downloads);
-//
-////            for (MusicBand m : musicBands) {
-////                System.out.println(m);
-////            }
-//        } catch (SQLException e) {
-//            System.err.println(e.getMessage());
-//        }
-//
-//        //DatabaseSupervisor.closeConnection(c);
     }
 
+    /**
+     * Method downloading element to the client collection from database
+     */
     public static void downloadElements(Connection c, ArrayDeque<MusicBand> musicBands, String username) {
         int downloads = 0;
         try {
@@ -129,19 +83,14 @@ public class DatabaseSupervisor {
                 downloads += 1;
             }
             System.out.println("Number of successfully loaded element: " + downloads);
-            //return "Number of successfully loaded element: " + downloads;
-//            for (MusicBand m : musicBands) {
-//                System.out.println(m);
-//            }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            //return e.getMessage();
         }
-
-        //DatabaseSupervisor.closeConnection(c);
-        //return "Number of successfully loaded element: " + downloads;
     }
 
+    /**
+     * Method for getting the connection with database
+     */
     public static Connection getConnection() {
         try {
             Class.forName("org.postgresql.Driver");
@@ -170,6 +119,9 @@ public class DatabaseSupervisor {
         return connection;
     }
 
+    /**
+     * Method for closing the connection with database
+     */
     public static void closeConnection(Connection connection) {
         if (connection != null) {
             try {

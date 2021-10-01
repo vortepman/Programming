@@ -10,14 +10,14 @@ import java.sql.SQLException;
 /**
  * Class of command 'clear'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class Clear extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      * @return String description of command
      */
     @Override

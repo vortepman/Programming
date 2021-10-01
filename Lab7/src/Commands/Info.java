@@ -6,14 +6,14 @@ import given.DatabaseSupervisor;
 /**
  * Class of command 'info'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class Info extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      * @return String description of command
      */
     @Override

@@ -5,7 +5,7 @@ import given.DatabaseSupervisor;
 
 /**
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  * Class from which all commands are inherited
  */
 abstract public class CommandSkeleton {

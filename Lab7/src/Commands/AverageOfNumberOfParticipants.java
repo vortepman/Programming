@@ -9,14 +9,14 @@ import java.util.ArrayDeque;
 /**
  * Class of command 'average_of_number_of_participants'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class AverageOfNumberOfParticipants extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      * @return - String description of command
      */
     @Override

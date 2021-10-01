@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Class for implementing the work of the client application
  * @author Petrov Ilya
- * @version 1.0
+ * @version 1.1
  */
 public class ClientLogicalBody {
 
@@ -28,9 +28,9 @@ public class ClientLogicalBody {
      * Socket for communication
      */
     private static DatagramSocket datagramSocket;
-
-    //public static String userChecker = "something";
-
+    /**
+     * Field checking the first client request
+     */
     public static int firstRequestRate = 0;
 
     /** method for launching the client application */

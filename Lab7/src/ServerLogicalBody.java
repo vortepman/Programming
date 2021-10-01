@@ -1,9 +1,7 @@
 import Commands.*;
-import given.CollectionSupervisor;
+
 import given.DatabaseSupervisor;
 import given.MusicBand;
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -12,14 +10,12 @@ import java.net.BindException;
 import java.util.ArrayDeque;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
+
 /**
  * Class for implementing the work of the server
  * @author Petrov Ilya
- * @version 1.0
+ * @version 1.1
  */
 public class ServerLogicalBody {
 
@@ -55,19 +51,17 @@ public class ServerLogicalBody {
      * Collection for collecting data
      */
     static ArrayDeque<MusicBand> loadedCollection = new ArrayDeque<>();
+    //private ForkJoinPool forkJoinPool = new ForkJoinPool();
 
     /** method for launching the server application */
     public void serverRun() throws IOException {
         try {
-            //CollectionSupervisor yeapSupervisor = new CollectionSupervisor();
-            //int messageCounter = 0;
-            //String userChecker = "something";
             DatabaseSupervisor databaseSupervisor = new DatabaseSupervisor();
             serverCommand();
             ExecutorService readingPool = Executors.newFixedThreadPool(10);
             while (true) {
                 datagramSocket = new DatagramSocket(serverPort);
-                Future<String[]> readerResult = readingPool.submit(() -> receivingLetter());
+                Future<String[]> readerResult = readingPool.submit(ServerLogicalBody::receivingLetter);
                 //String[] message = receivingLetter();
                 String[] message = readerResult.get();
                 if (message[0].equals("downloadingCollection")) {
@@ -81,14 +75,18 @@ public class ServerLogicalBody {
                     datagramSocket.close();
                     continue;
                 }
-//                if (message[0].equals("downloadingCollection")) {
-//                    String answerForTheClient = "Your collection has already been loaded, you can continue working.";
-//                    secondByteLetter = answerForTheClient.getBytes();
-//                    DatagramPacket toClientPacket = new DatagramPacket(secondByteLetter, secondByteLetter.length, inetAddress, port);
-//                    datagramSocket.send(toClientPacket);
-//                    datagramSocket.close();
-//                    continue;
-//                }
+
+//                Runnable dispatch = () -> {
+//                    try {
+//                        creatingAResponse(databaseSupervisor);
+//                        loadedCollection = databaseSupervisor.getMusicBands();
+//                        //datagramSocket.close();
+//                    } catch (IOException ioException) {
+//                        System.out.println("Error while sending a response!");
+//                    }
+//                    return null;
+//                };
+//                forkJoinPool.execute(ForkJoinTask.adapt(dispatch));
                 creatingAResponse(databaseSupervisor);
                 loadedCollection = databaseSupervisor.getMusicBands();
                 datagramSocket.close();
@@ -100,9 +98,8 @@ public class ServerLogicalBody {
             System.out.println("Please, shut up)");
         } catch (BindException bindException) {
             System.out.println("The server application is already running!");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        }
+        catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -187,9 +184,8 @@ public class ServerLogicalBody {
         });
         try {
             return (String) out.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        }
+        catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return firstValue;
@@ -220,6 +216,10 @@ public class ServerLogicalBody {
         thread.start();
     }
 
+    /**
+     * Module for 'exit' command on server
+     *
+     */
     private void serverCommand() {
         Scanner scanner = new Scanner(System.in);
         Runnable serverInput = () -> {

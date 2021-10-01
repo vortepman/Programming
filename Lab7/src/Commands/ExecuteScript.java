@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Class of command 'execute_script'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class ExecuteScript extends CommandSkeleton {
 

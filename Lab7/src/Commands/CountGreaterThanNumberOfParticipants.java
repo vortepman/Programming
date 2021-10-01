@@ -8,14 +8,14 @@ import java.util.ArrayDeque;
 /**
  * Class of command 'count_greater_than_number_of_participants'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class CountGreaterThanNumberOfParticipants extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      * @return String phrase for close client
      */
     @Override

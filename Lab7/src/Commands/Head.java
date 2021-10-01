@@ -7,14 +7,14 @@ import given.MusicBand;
 /**
  * Class of command 'head'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class Head extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      * @return - String description of command
      */
     @Override

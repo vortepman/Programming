@@ -2,23 +2,20 @@ package Commands;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import given.*;
-
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.*;
 
 /**
  * Class of command 'add'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class Add extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      * @return String phrase for close client
      */
     @Override

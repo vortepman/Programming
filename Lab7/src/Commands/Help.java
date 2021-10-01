@@ -8,14 +8,14 @@ import java.util.*;
 /**
  * Class of command 'help'
  * @author Petrov Ilya
- * @version 1.1
+ * @version 1.2
  */
 public class Help extends CommandSkeleton {
 
     /**
      * Method for executing this command
      *
-     * @param databaseSupervisor collection
+     * @param databaseSupervisor element for working with database
      */
     @Override
     public String move(DatabaseSupervisor databaseSupervisor) {

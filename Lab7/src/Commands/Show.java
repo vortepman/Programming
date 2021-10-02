@@ -1,6 +1,5 @@
 package Commands;
 
-import given.CollectionSupervisor;
 import given.DatabaseSupervisor;
 import given.MusicBand;
 
@@ -20,9 +19,10 @@ public class Show extends CommandSkeleton {
      * @return - String description of command
      */
     @Override
-    public String move(DatabaseSupervisor databaseSupervisor){
+    public String move(DatabaseSupervisor databaseSupervisor, String username){
         StringBuilder letter = new StringBuilder();
-        ArrayDeque<MusicBand> oneOfMusicBands = databaseSupervisor.getMusicBands();
+        ArrayDeque<MusicBand> oneOfMusicBands = new ArrayDeque<>();
+        DatabaseSupervisor.downloadElementsForUser(DatabaseSupervisor.getConnection(), oneOfMusicBands, username);
         if (!oneOfMusicBands.isEmpty()) {
             for(MusicBand musicBand : oneOfMusicBands){
                 letter.append(musicBand.toString()).append("\n");

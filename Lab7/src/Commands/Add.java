@@ -40,7 +40,7 @@ public class Add extends CommandSkeleton {
 
             ps.executeUpdate();
             databaseSupervisor.getMusicBands().clear();
-            DatabaseSupervisor.downloadElements(c, databaseSupervisor.getMusicBands(), username);
+            DatabaseSupervisor.downloadElements(c, databaseSupervisor.getMusicBands());
 
             return "Element added to database successfully.";
         } catch (Throwable throwable) {

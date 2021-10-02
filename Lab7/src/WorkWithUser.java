@@ -76,7 +76,10 @@ public class WorkWithUser {
                             }
                         }
                         if (check == 1) {
-                            WorkWithUser.workingWithPassword();
+                            String password = WorkWithUser.workingWithPassword();
+                            if (password.equals("back")) {
+                                continue;
+                            }
                             return username;
                         } else if (!username.equals("back")) {
                             System.out.println("This username doesn't exist. Please, try again.");
@@ -120,6 +123,9 @@ public class WorkWithUser {
 
                         if (check == 1 && !username.equals("back")) {
                             String password = WorkWithUser.workingWithPassword();
+                            if (password.equals("back")) {
+                                continue;
+                            }
                             PreparedStatement pS = c.prepareStatement("insert into users (user_name, password) values (?, ?)");
                             pS.setString(1, username);
                             pS.setString(2, password);
@@ -186,7 +192,7 @@ public class WorkWithUser {
         Scanner inputValue2 = new Scanner(System.in);
         String usersPassword = "";
         String verifiablePassword = "";
-        while (true) {
+        while (!usersPassword.equals("back")) {
             if (userDecision.equals("sign_in")) {
                 while (true) {
                     System.out.println("If you want to go back, enter 'back'.");
@@ -226,12 +232,17 @@ public class WorkWithUser {
                     System.out.print("Create your password(Attention! All spaces will be removed and password must contain at least 8 characters)): ");
                     usersPassword = inputValue2.nextLine().trim();
 
-                    if (usersPassword.length() < 8) {
+                    if (usersPassword.length() < 8 && !usersPassword.equals("back")) {
                         while (usersPassword.length() < 8) {
                             System.out.println("Password must contain at least a 8 characters. Try again.");
                             System.out.print("Create your password(Attention! All spaces will be removed and password must contain at least 8 characters): ");
                             usersPassword = inputValue2.nextLine().trim().replaceAll(" ", "");
+                            if (usersPassword.equals("back")) {
+                                return usersPassword;
+                            }
                         }
+                    } else if (usersPassword.equals("back")) {
+                        return usersPassword;
                     }
 
                     System.out.print("Please duplicate your password: ");
@@ -246,18 +257,16 @@ public class WorkWithUser {
                         }
                     }
 
-                    if (!usersPassword.equals("back") && usersPassword.equals(usersPassword2)) {
+                    if (usersPassword.equals(usersPassword2)) {
                         return WorkWithUser.hashing(usersPassword);
-                    } else if (!usersPassword.equals("back")) {
-                        System.out.println("The entered password doesn't match the previously entered password! Please, try again.");
                     } else {
-                        break;
+                        System.out.println("The entered password doesn't match the previously entered password! Please, try again.");
                     }
                 }
 
             }
         }
-
+        return usersPassword;
     }
 
 }

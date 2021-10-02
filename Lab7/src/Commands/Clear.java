@@ -28,6 +28,7 @@ public class Clear extends CommandSkeleton {
             ps.setString(1, username);
             ps.executeUpdate();
             databaseSupervisor.getMusicBands().clear();
+            DatabaseSupervisor.downloadElements(c, databaseSupervisor.getMusicBands());
             return "Database successfully cleared.";
         } catch (SQLException sqlException) {
             return "Oh shit, I don't know how it happened)";

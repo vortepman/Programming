@@ -1,6 +1,4 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
 import given.*;
-import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.*;
 import java.net.*;
@@ -28,19 +26,19 @@ public class ClientLogicalBody {
      * Socket for communication
      */
     private static DatagramSocket datagramSocket;
-    /**
-     * Field checking the first client request
-     */
-    public static int firstRequestRate = 0;
+//    /**
+//     * Field checking the first client request
+//     */
+//    public static int firstRequestRate = 0;
 
     /** method for launching the client application */
     public void clientRun() {
         try {
             while (true) {
                 System.out.println("Welcome to the client app, buddy.");
-
                 //WorkWithUser workWithUser = new WorkWithUser();
                 String username = WorkWithUser.logging();
+                System.out.println("Login was successful, you can write 'help' for help.");
                 inetAddress = InetAddress.getByName("localhost");
                 while (true) {
                     datagramSocket = new DatagramSocket();
@@ -54,7 +52,7 @@ public class ClientLogicalBody {
                     }
                     if (letter.equals("back")) {
                         System.out.println("Thank you for working in our program! Now you will be direct to the login field.");
-                        firstRequestRate = 0;
+                        //firstRequestRate = 0;
                         datagramSocket.close();
                         break;
                     }
@@ -88,14 +86,14 @@ public class ClientLogicalBody {
     public static String creatingAMessage(String username) throws IOException {
         String clientCommand = "";
         byte[] byteLetter;
-        if (firstRequestRate == 0) {
-            String letter = "downloadingCollection secondLetter " + username;
-            byteLetter = letter.getBytes();
-            DatagramPacket datagramPacket = new DatagramPacket(byteLetter, byteLetter.length, inetAddress, serverPort);
-            datagramSocket.send(datagramPacket);
-            firstRequestRate += 1;
-            return clientCommand;
-        }
+//        if (firstRequestRate == 0) {
+//            String letter = "downloadingCollection secondLetter " + username;
+//            byteLetter = letter.getBytes();
+//            DatagramPacket datagramPacket = new DatagramPacket(byteLetter, byteLetter.length, inetAddress, serverPort);
+//            datagramSocket.send(datagramPacket);
+//            firstRequestRate += 1;
+//            return clientCommand;
+//        }
         Scanner inputValue = new Scanner(System.in);
         while (clientCommand.equals("")) {
             System.out.print("Input a command: ");

@@ -64,17 +64,17 @@ public class ServerLogicalBody {
                 Future<String[]> readerResult = readingPool.submit(ServerLogicalBody::receivingLetter);
                 //String[] message = receivingLetter();
                 String[] message = readerResult.get();
-                if (message[0].equals("downloadingCollection")) {
-                    databaseSupervisor.getMusicBands().clear();
-                    DatabaseSupervisor.downloadElements(DatabaseSupervisor.getConnection(), databaseSupervisor.getMusicBands(), message[2]);
-                    //userChecker = message[2];
-                    String answerForTheClient = "Your collection has been loaded successfully!";
-                    secondByteLetter = answerForTheClient.getBytes();
-                    DatagramPacket toClientPacket = new DatagramPacket(secondByteLetter, secondByteLetter.length, inetAddress, port);
-                    datagramSocket.send(toClientPacket);
-                    datagramSocket.close();
-                    continue;
-                }
+//                if (message[0].equals("downloadingCollection")) {
+//                    databaseSupervisor.getMusicBands().clear();
+//                    DatabaseSupervisor.downloadElements(DatabaseSupervisor.getConnection(), databaseSupervisor.getMusicBands(), message[2]);
+//                    //userChecker = message[2];
+//                    String answerForTheClient = "Your collection has been loaded successfully!";
+//                    secondByteLetter = answerForTheClient.getBytes();
+//                    DatagramPacket toClientPacket = new DatagramPacket(secondByteLetter, secondByteLetter.length, inetAddress, port);
+//                    datagramSocket.send(toClientPacket);
+//                    datagramSocket.close();
+//                    continue;
+//                }
 
 //                Runnable dispatch = () -> {
 //                    try {
@@ -147,19 +147,19 @@ public class ServerLogicalBody {
                         executableCommand = new Clear().move(databaseSupervisor, thirdValue);
                         break;
                     case "show":
-                        executableCommand = new Show().move(databaseSupervisor);
+                        executableCommand = new Show().move(databaseSupervisor, thirdValue);
                         break;
                     case "show_all":
                         executableCommand = new ShowAll().move(databaseSupervisor);
                         break;
                     case "head":
-                        executableCommand = new Head().move(databaseSupervisor);
+                        executableCommand = new Head().move(databaseSupervisor, thirdValue);
                         break;
                     case "remove_head":
                         executableCommand = new RemoveHead().move(databaseSupervisor, thirdValue);
                         break;
                     case "average_of_number_of_participants":
-                        executableCommand = new AverageOfNumberOfParticipants().move(databaseSupervisor, thirdValue);
+                        executableCommand = new AverageOfNumberOfParticipants().move(databaseSupervisor);
                         break;
                     case "update":
                         executableCommand = new Update().move(secondValue, databaseSupervisor, thirdValue);
@@ -168,7 +168,7 @@ public class ServerLogicalBody {
                         executableCommand = new RemoveById().move(secondValue, databaseSupervisor, thirdValue);
                         break;
                     case "count_greater_than_number_of_participants":
-                        executableCommand = new CountGreaterThanNumberOfParticipants().move(secondValue, databaseSupervisor, thirdValue);
+                        executableCommand = new CountGreaterThanNumberOfParticipants().move(secondValue, databaseSupervisor);
                         break;
                     case "execute_script":
                         DatabaseSupervisor.getPaths().add(secondValue.toLowerCase());

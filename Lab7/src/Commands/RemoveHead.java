@@ -25,7 +25,8 @@ public class RemoveHead extends CommandSkeleton {
     @Override
     public String move(DatabaseSupervisor databaseSupervisor, String username){
         StringBuilder letter = new StringBuilder();
-        ArrayDeque<MusicBand> oneOfMusicBands = databaseSupervisor.getMusicBands();
+        ArrayDeque<MusicBand> oneOfMusicBands = new ArrayDeque<>();
+        DatabaseSupervisor.downloadElementsForUser(DatabaseSupervisor.getConnection(), oneOfMusicBands, username);
         if (!oneOfMusicBands.isEmpty()) {
             Connection c = DatabaseSupervisor.getConnection();
             try {

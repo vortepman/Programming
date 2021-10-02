@@ -27,6 +27,10 @@ abstract public class CommandSkeleton {
         return null;
     }
     /** Method for commands execution */
+    public Object move(String s, DatabaseSupervisor databaseSupervisor) {
+        return null;
+    }
+    /** Method for commands execution */
     public Object move(DatabaseSupervisor databaseSupervisor) {
         return null;
     }

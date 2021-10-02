@@ -28,11 +28,10 @@ public class DatabaseSupervisor {
      * Field for saving date of initialization the collection
      */
     private LocalDateTime initializationDate;
-    //private static final String url = "jdbc:postgresql://localhost:9376/studs";
-    private static final String url = "jdbc:postgresql://pg:5432/studs";
-    private static final String user = "s312642";
-    private static final String pass =  "pkj919";
-    private static final String schema =  "s312642";
+    private static final String url = "jdbc:postgresql://hi:********/buddy";
+    private static final String user = "********";
+    private static final String pass =  "********";
+    private static final String schema =  "********";
     private static Connection connection;
 
     // Constructor for establishing a connection to the database and fixing the start time

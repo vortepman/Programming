@@ -19,7 +19,7 @@ public class CountGreaterThanNumberOfParticipants extends CommandSkeleton {
      * @return String phrase for close client
      */
     @Override
-    public String move(String element, DatabaseSupervisor databaseSupervisor, String username) {
+    public String move(String element, DatabaseSupervisor databaseSupervisor) {
         try {
             ArrayDeque<MusicBand> oneOfMusicBands = databaseSupervisor.getMusicBands();
             String strNumberOfParticipants = element.trim();
@@ -42,7 +42,7 @@ public class CountGreaterThanNumberOfParticipants extends CommandSkeleton {
                 return "The collection is empty.";
             }
             letter.append("The number of groups whose numberOfParticipants field value is greater than" +
-                    " the received value = ").append(bandCounter).append(".For ").append(username).append(" collection.");
+                    " the received value = ").append(bandCounter);
             return letter.toString();
         } catch (NumberFormatException | StringIndexOutOfBoundsException n) {
             return "Number of participants field must be a long-type number. Try again.";

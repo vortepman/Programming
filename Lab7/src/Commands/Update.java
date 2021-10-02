@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayDeque;
 
 /**
  * Class of command 'update'
@@ -26,6 +27,9 @@ public class Update extends CommandSkeleton {
     @Override
     public String move(String element, DatabaseSupervisor databaseSupervisor, String username) {
         try {
+            ArrayDeque<MusicBand> oneOfMusicBands = new ArrayDeque<>();
+            DatabaseSupervisor.downloadElementsForUser(DatabaseSupervisor.getConnection(), oneOfMusicBands, username);
+
             ObjectMapper objectMapper = new ObjectMapper();
             MusicBand newMusicBand = objectMapper.readValue(element, MusicBand.class);
             Connection c = DatabaseSupervisor.getConnection();
@@ -47,11 +51,11 @@ public class Update extends CommandSkeleton {
 
             int test = 0;
             long newId = newMusicBand.getId();
-            for (MusicBand musicBand : databaseSupervisor.getMusicBands()) {
+            for (MusicBand musicBand : oneOfMusicBands) {
                 if (newId == musicBand.getId()) {
                     test = 1;
                     databaseSupervisor.getMusicBands().clear();
-                    DatabaseSupervisor.downloadElements(c, databaseSupervisor.getMusicBands(), username);
+                    DatabaseSupervisor.downloadElements(c, databaseSupervisor.getMusicBands());
                     break;
                 }
             }

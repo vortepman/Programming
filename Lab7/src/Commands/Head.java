@@ -1,8 +1,12 @@
 package Commands;
 
-import given.CollectionSupervisor;
-import given.DatabaseSupervisor;
-import given.MusicBand;
+import given.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayDeque;
 
 /**
  * Class of command 'head'
@@ -18,10 +22,12 @@ public class Head extends CommandSkeleton {
      * @return - String description of command
      */
     @Override
-    public String move(DatabaseSupervisor databaseSupervisor){
+    public String move(DatabaseSupervisor databaseSupervisor, String username){
         StringBuilder letter = new StringBuilder();
-        if (!databaseSupervisor.getMusicBands().isEmpty()) {
-            MusicBand firstMusicBand = databaseSupervisor.getMusicBands().getFirst();
+        ArrayDeque<MusicBand> oneOfMusicBands = new ArrayDeque<>();
+        DatabaseSupervisor.downloadElementsForUser(DatabaseSupervisor.getConnection(), oneOfMusicBands, username);
+        if (!oneOfMusicBands.isEmpty()) {
+            MusicBand firstMusicBand = oneOfMusicBands.getFirst();
             letter.append(firstMusicBand.toString());
         } else {
             letter.append("Collection is empty");

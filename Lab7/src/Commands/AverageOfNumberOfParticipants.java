@@ -20,7 +20,7 @@ public class AverageOfNumberOfParticipants extends CommandSkeleton {
      * @return - String description of command
      */
     @Override
-    public String move(DatabaseSupervisor databaseSupervisor, String username){
+    public String move(DatabaseSupervisor databaseSupervisor){
         StringBuilder letter = new StringBuilder();
         ArrayDeque<MusicBand> oneOfMusicBands = databaseSupervisor.getMusicBands();
         double sum_of_number_of_participants = 0;
@@ -29,8 +29,7 @@ public class AverageOfNumberOfParticipants extends CommandSkeleton {
                 sum_of_number_of_participants += musicBand.getNumberOfParticipants();
             }
             letter.append("Average value of number of participants = ")
-                    .append(sum_of_number_of_participants / oneOfMusicBands.size())
-                    .append(".For " + username + " collection.");
+                    .append(sum_of_number_of_participants / oneOfMusicBands.size());
         } else {
             letter.append("Collection is empty.");
         }

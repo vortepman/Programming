@@ -26,26 +26,22 @@ public class RemoveById extends CommandSkeleton {
     public String move(String element, DatabaseSupervisor databaseSupervisor, String username) {
         System.out.println("{" + element.trim() + "}");
         try {
+            ArrayDeque<MusicBand> oneOfMusicBands = new ArrayDeque<>();
+            DatabaseSupervisor.downloadElementsForUser(DatabaseSupervisor.getConnection(), oneOfMusicBands, username);
+
             Connection c = DatabaseSupervisor.getConnection();
             PreparedStatement ps = c.prepareStatement("delete from music_bands where (id = ?) and (user_name = ?)");
             ps.setInt(1, Integer.parseInt(element.trim()));
             ps.setString(2, username);
             ps.executeUpdate();
 
-            ArrayDeque<MusicBand> oneOfMusicBands = databaseSupervisor.getMusicBands();
+            //ArrayDeque<MusicBand> oneOfMusicBands = databaseSupervisor.getMusicBands();
 
-//            String strId = element.trim();
-//            long id;
-//            if (strId.indexOf(" ") > 0) {
-//                id = Long.parseLong(strId.substring(0, strId.indexOf(" ")));
-//            } else {
-//                id = Long.parseLong(strId);
-//            }
             long id = Long.parseLong(element.trim());
 
             if (oneOfMusicBands.size() != 0) {
                 for (MusicBand musicBand : oneOfMusicBands) {
-                    //System.out.println(musicBand.getId().toString());
+                    System.out.println(musicBand.getId().toString());
                     if (id == musicBand.getId()) {
                         oneOfMusicBands.remove(musicBand);
                         //databaseSupervisor.save();
